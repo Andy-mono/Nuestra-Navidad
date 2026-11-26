@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#24151b">
+<title>Nuestra Navidad · 24 pequeños regalos</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+:root{
+ --night:#24151b;--wine:#542638;--wine2:#71384b;--cream:#f7f0e7;
+ --paper:#fffaf3;--gold:#d7b77b;--gold2:#f0d9a8;--muted:#c9b8b2;
+ --green:#334c40;--shadow:0 22px 70px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--cream);font-family:'DM Sans',sans-serif;
+ background:radial-gradient(ellipse at 50% 0%,#65404a 0%,#35212a 42%,#1d1318 100%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;
+ background-image:radial-gradient(#f4dfb2 1px,transparent 1px);background-size:34px 34px}
+.wrap{width:min(1120px,92%);margin:auto;padding:36px 0 54px;position:relative}
+.topline{display:flex;justify-content:center;align-items:center;gap:12px;color:var(--gold2);
+ text-transform:uppercase;letter-spacing:.24em;font-size:10px;font-weight:700}
+.topline:before,.topline:after{content:"";height:1px;width:46px;background:linear-gradient(90deg,transparent,var(--gold))}
+.topline:after{transform:scaleX(-1)}
+header{text-align:center;padding:28px 0 22px}
+.kicker{color:var(--gold2);font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 13px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(42px,7vw,76px);font-weight:500;line-height:1.02;margin:0;color:#fff7ec}
+h1 span{color:var(--gold2);font-style:italic}
+.subtitle{color:#e1d0c8;font-size:14px;line-height:1.7;max-width:520px;margin:17px auto 0}
+.date-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(215,183,123,.48);
+ border-radius:100px;padding:9px 15px;color:var(--gold2);font-size:11px;letter-spacing:.12em;margin-top:22px}
+.progress-area{max-width:520px;margin:28px auto 0}
+.progress-label{display:flex;justify-content:space-between;color:#e8d9cf;font-size:11px;margin-bottom:9px}
+.progress-track{height:5px;background:rgba(255,255,255,.13);border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#b78c55,#f0d9a8);border-radius:20px;transition:width .35s}
+.house-card{position:relative;max-width:880px;margin:34px auto 0;padding:30px clamp(14px,4vw,42px) 34px;
+ border:1px solid rgba(215,183,123,.42);border-radius:26px;background:linear-gradient(145deg,rgba(255,250,243,.10),rgba(255,250,243,.035));
+ box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+.house-card:before{content:"";position:absolute;inset:8px;border:1px solid rgba(215,183,123,.14);border-radius:19px;pointer-events:none}
+.house-heading{text-align:center;position:relative;margin-bottom:23px}
+.house-heading .small{color:var(--gold2);font-size:10px;text-transform:uppercase;letter-spacing:.25em}
+.house-heading h2{font:500 clamp(23px,4vw,32px) 'Playfair Display',serif;margin:7px 0 5px}
+.house-heading p{color:#d5c3bb;font-size:12px;margin:0}
+.roof{width:min(600px,88%);height:54px;margin:0 auto -1px;position:relative}
+.roof:before{content:"";position:absolute;inset:0 4% 0;clip-path:polygon(50% 0,100% 100%,0 100%);
+ background:linear-gradient(135deg,#9a6a54,#542638 70%);border:1px solid rgba(240,217,168,.7);filter:drop-shadow(0 5px 4px #160d10)}
+.roof:after{content:"✦  ✧  ✦";position:absolute;top:13px;left:0;right:0;text-align:center;color:#f3dfb8;letter-spacing:24px;font-size:13px}
+.window-grid{position:relative;max-width:700px;margin:0 auto;padding:24px 20px 22px;border:1px solid rgba(240,217,168,.65);
+ border-radius:7px 7px 16px 16px;background:linear-gradient(145deg,#794657,#4d2838 65%,#3d2630);
+ display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(8px,2vw,15px);box-shadow:inset 0 0 0 7px rgba(24,13,17,.18),0 16px 28px rgba(0,0,0,.22)}
+.window{appearance:none;border:1px solid rgba(240,217,168,.75);border-radius:9px;min-width:0;aspect-ratio:1/1.06;
+ background:linear-gradient(145deg,#f5e4c5,#d6b887);color:#4d2935;cursor:pointer;position:relative;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+ box-shadow:inset 0 0 0 3px rgba(255,255,255,.25),0 5px 9px rgba(0,0,0,.18);transition:transform .2s,filter .2s,box-shadow .2s}
+.window:hover:not(:disabled){transform:translateY(-4px);filter:brightness(1.08);box-shadow:0 9px 16px rgba(0,0,0,.28)}
+.window .num{font:600 clamp(20px,3.2vw,29px) 'Playfair Display',serif;line-height:1}
+.window .hint{font-size:8px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.window .symbol{font-size:14px;line-height:1}
+.window.locked{background:linear-gradient(145deg,#735765,#4a3340);color:#d6c4bd;border-color:rgba(215,183,123,.28);cursor:not-allowed;box-shadow:inset 0 0 0 3px rgba(255,255,255,.035)}
+.window.locked .symbol{opacity:.8}
+.window.opened{background:linear-gradient(145deg,#e8d4a9,#c7a56f);color:#3c2830}
+.window.opened .hint{color:#76513d}
+.base{width:min(630px,88%);height:17px;margin:0 auto;background:linear-gradient(90deg,#4b2836,#986a55,#4b2836);border:1px solid rgba(240,217,168,.5);border-radius:0 0 5px 5px}
+.note{text-align:center;color:#d9c9c0;font-size:11px;line-height:1.7;margin:22px auto 0;max-width:540px}
+.note strong{color:var(--gold2);font-weight:600}
+footer{text-align:center;color:#bda9a2;font-size:10px;letter-spacing:.12em;margin-top:27px}
+footer span{color:var(--gold2)}
+/* Gift window */
+.modal{position:fixed;inset:0;background:rgba(13,8,11,.78);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px;z-index:5}
+.modal.show{display:flex}
+.modal-card{width:min(500px,100%);max-height:88vh;overflow:auto;background:var(--paper);color:#39242c;border-radius:22px;
+ box-shadow:0 25px 90px rgba(0,0,0,.5);position:relative;padding:34px clamp(22px,6vw,42px) 30px;text-align:center;border:1px solid #dfc99f}
+.modal-card:before{content:"";position:absolute;inset:8px;border:1px solid #ead9bc;border-radius:15px;pointer-events:none}
+.close{position:absolute;right:18px;top:15px;border:0;background:transparent;color:#76515d;font-size:25px;cursor:pointer;z-index:1}
+.modal-date{font-size:10px;text-transform:uppercase;letter-spacing:.23em;color:#98734f}
+.modal-icon{font-size:34px;margin:15px 0 8px}
+.modal h3{font:600 31px 'Playfair Display',serif;margin:0 0 13px;color:#542638}
+.modal-body{font-size:14px;line-height:1.8;color:#66545a;white-space:pre-line}
+.modal-extra{margin-top:17px;font-size:12px;color:#8c6a55}
+.modal-action{display:inline-block;margin-top:22px;border:0;border-radius:30px;padding:12px 22px;background:#542638;color:#fff7ec;
+ font:600 11px 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+@media(max-width:620px){.wrap{padding-top:25px}.house-card{padding:25px 10px 25px;border-radius:18px}.window-grid{grid-template-columns:repeat(4,minmax(0,1fr));padding:16px 12px;gap:9px}.roof{height:42px}.window .hint{font-size:7px}.subtitle{font-size:13px}.house-heading p{font-size:11px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topline">Una temporada para recordar</div>
+  <header>
+    <p class="kicker">Diciembre · edición especial</p>
+    <h1>Nuestra <span>Navidad</span></h1>
+    <p class="subtitle">Veinticuatro pequeños detalles, recuerdos y sorpresas. Uno para cada día, preparados especialmente para ti.</p>
+    <div class="date-pill">✧  01 — 24 DICIEMBRE 2026  ✧</div>
+    <div class="progress-area">
+      <div class="progress-label"><span>Tu colección de momentos</span><span id="progressText">0 de 24 abiertos</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </header>
+
+  <main class="house-card">
+    <div class="house-heading">
+      <div class="small">Abre una ventanita cada día</div>
+      <h2>La casita de los recuerdos</h2>
+      <p>Las sorpresas te esperan detrás de cada puerta.</p>
+    </div>
+    <div class="roof"></div>
+    <div class="window-grid" id="windows" aria-label="Calendario de 24 días"></div>
+    <div class="base"></div>
+    <p class="note">Las ventanas se abren en su fecha correspondiente. <strong>Cuando descubras un regalo, podrás volver a él cuando quieras.</strong></p>
+  </main>
+  <footer>HECHO CON <span>♥</span> · PARA ALGUIEN ESPECIAL</footer>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="giftTitle">
+  <div class="modal-card">
+    <button class="close" id="closeModal" aria-label="Cerrar">×</button>
+    <div class="modal-date" id="giftDate">DÍA 01 · DICIEMBRE</div>
+    <div class="modal-icon" id="giftIcon">♡</div>
+    <h3 id="giftTitle">Un detalle para ti</h3>
+    <div class="modal-body" id="giftBody"></div>
+    <div class="modal-extra" id="giftExtra"></div>
+    <button class="modal-action" id="doneButton">Guardar este momento</button>
+  </div>
+</div>
+
+<script>
+/* Puedes cambiar los títulos y mensajes de estos 24 regalos cuando quieras. */
+const gifts = [
+ {icon:"💌",title:"Una carta para ti",body:"Quería empezar este calendario recordándote lo especial que eres para mí. Gracias por cada sonrisa, cada abrazo y cada momento que hemos compartido.",extra:"Un abrazo de esos que duran mucho."},
+ {icon:"📸",title:"Un recuerdo nuestro",body:"Aquí irá una foto de uno de nuestros momentos favoritos. Cada vez que la veas, recuerda lo bonito que fue vivirlo juntos.",extra:"Reemplaza este texto por tu foto favorita."},
+ {icon:"🎵",title:"Nuestra canción",body:"Hay canciones que se sienten como un recuerdo. Esta es una de ellas.",extra:"Pega aquí el enlace de nuestra canción."},
+ {icon:"🎟️",title:"Vale por una cita",body:"Este vale se puede canjear por una cita planeada con mucho cariño. Tú eliges el día y yo pongo la sorpresa.",extra:"Válido para una cita juntos."},
+ {icon:"✨",title:"Cinco cosas que amo",body:"1. Tu forma de hacerme reír.\n2. Cómo me miras.\n3. Tu manera de abrazarme.\n4. Los pequeños detalles que tienes.\n5. Lo bien que se siente estar contigo.",extra:"Y podría seguir escribiendo…"},
+ {icon:"🎬",title:"Una noche de película",body:"Hoy toca elegir una película, preparar algo rico y disfrutar una noche tranquila juntos.",extra:"Tú eliges la película."},
+ {icon:"🧩",title:"Nuestro mini reto",body:"Dime tres recuerdos nuestros que te hagan sonreír. Después yo te diré los míos.",extra:"Reto: no repetir ningún recuerdo."},
+ {icon:"🌹",title:"Un cumplido sincero",body:"Me encanta la persona que eres y la forma en que haces que los días normales tengan algo especial.",extra:"Nunca olvides lo mucho que vales."},
+ {icon:"☕",title:"Un desayuno especial",body:"Te debo un desayuno preparado con cariño. Algo rico, sin prisas y con buena compañía.",extra:"Canjeable cualquier mañana."},
+ {icon:"🎧",title:"Un audio para ti",body:"Aquí puedes añadir una nota de voz diciéndole algo bonito o contándole un recuerdo.",extra:"Añade el enlace de tu audio."},
+ {icon:"🗺️",title:"Una aventura pendiente",body:"Elige un lugar al que todavía no hayamos ido. Quiero que hagamos un recuerdo nuevo ahí.",extra:"Una salida por planear."},
+ {icon:"🍪",title:"Algo dulce",body:"Hoy te toca un antojo. Elige tu postre favorito y lo compartimos.",extra:"Porque los días dulces se disfrutan más juntos."},
+ {icon:"💭",title:"Lo que recuerdo",body:"A veces me acuerdo de momentos pequeños contigo y sonrío sin darme cuenta. Esos detalles también hacen grande lo nuestro.",extra:"Un pensamiento que quería compartir."},
+ {icon:"🎮",title:"Tú eliges el plan",body:"Hoy tú mandas: juego, paseo, película o quedarnos descansando. Lo importante es compartir el rato.",extra:"Tu elección es la sorpresa."},
+ {icon:"📷",title:"Una foto especial",body:"Este espacio es para otra foto que te guste mucho de nosotros.",extra:"Reemplaza este texto por una imagen o su enlace."},
+ {icon:"💗",title:"Una razón más",body:"Me gusta poder ser yo contigo. Me gusta compartir mis días y descubrir nuevas cosas a tu lado.",extra:"Gracias por estar aquí."},
+ {icon:"🎁",title:"Un regalo sorpresa",body:"Hoy hay una sorpresa preparada para ti. Puedes escribir aquí una pista o contarle dónde encontrarla.",extra:"Añade los detalles de tu sorpresa."},
+ {icon:"🌙",title:"Una noche para nosotros",body:"Una noche sin apuros, con nuestras conversaciones, risas y todo el tiempo del mundo.",extra:"Aparta un ratito para nosotros."},
+ {icon:"📝",title:"Nuestra lista",body:"Hagamos una lista de diez cosas que queremos hacer juntos el próximo año. ¡Que no falten planes!",extra:"Guarden la lista para cumplirla."},
+ {icon:"🫶",title:"Gracias por…",body:"Gracias por los momentos bonitos, por las risas inesperadas y por todas esas pequeñas cosas que quizá parecen simples, pero significan mucho para mí.",extra:"Hoy quería darte las gracias."},
+ {icon:"🎄",title:"Un deseo navideño",body:"Deseo que esta Navidad esté llena de tranquilidad, alegría y momentos que podamos recordar con cariño.",extra:"Que nunca nos falten motivos para sonreír."},
+ {icon:"🎤",title:"Una canción dedicada",body:"Hoy quiero dedicarte una canción. Escúchala pensando en nosotros.",extra:"Pega aquí el enlace de la canción."},
+ {icon:"❤️",title:"Mi parte favorita",body:"Mi parte favorita no es un solo día ni un solo plan: es poder compartir momentos contigo y seguir creando recuerdos.",extra:"Gracias por formar parte de mi vida."},
+ {icon:"⭐",title:"Feliz Navidad",body:"Llegamos al último día. Ojalá este calendario te haya sacado sonrisas y te haya recordado cuánto cariño hay detrás de cada detalle. Feliz Navidad. ❤️",extra:"El mejor regalo es seguir creando recuerdos."}
+];
+const today = new Date();
+const windows = document.getElementById('windows');
+const modal = document.getElementById('modal');
+const openedKey = 'nuestra-navidad-opened-v1';
+let opened = JSON.parse(localStorage.getItem(openedKey) || '[]');
+function isUnlocked(day){
+  const now = new Date();
+  const start = new Date(2026, 11, day, 0, 0, 0);
+  return now >= start;
+}
+function updateProgress(){
+  const count = opened.length;
+  document.getElementById('progressText').textContent = `${count} de 24 abiertos`;
+  document.getElementById('progressFill').style.width = `${count/24*100}%`;
+}
+function showGift(day){
+  const gift = gifts[day-1];
+  document.getElementById('giftDate').textContent = `DÍA ${String(day).padStart(2,'0')} · DICIEMBRE`;
+  document.getElementById('giftIcon').textContent = gift.icon;
+  document.getElementById('giftTitle').textContent = gift.title;
+  document.getElementById('giftBody').textContent = gift.body;
+  document.getElementById('giftExtra').textContent = gift.extra || '';
+  modal.classList.add('show');
+  if(!opened.includes(day)){
+    opened.push(day);
+    localStorage.setItem(openedKey,JSON.stringify(opened));
+    updateProgress();
+    renderWindows();
+  }
+}
+function renderWindows(){
+  windows.innerHTML='';
+  for(let day=1;day<=24;day++){
+    const unlocked=isUnlocked(day), wasOpened=opened.includes(day);
+    const button=document.createElement('button');
+    button.className='window'+(!unlocked?' locked':wasOpened?' opened':'');
+    button.type='button';
+    button.disabled=!unlocked;
+    button.setAttribute('aria-label',unlocked?`Abrir día ${day}`:`Día ${day}, todavía cerrado`);
+    button.innerHTML=`<span class="num">${String(day).padStart(2,'0')}</span><span class="symbol">${!unlocked?'✧':wasOpened?'♥':'✦'}</span><span class="hint">${!unlocked?'Pronto':wasOpened?'Abierto':'Abrir'}</span>`;
+    if(unlocked) button.addEventListener('click',()=>showGift(day));
+    windows.appendChild(button);
+  }
+}
+document.getElementById('closeModal').addEventListener('click',()=>modal.classList.remove('show'));
+document.getElementById('doneButton').addEventListener('click',()=>modal.classList.remove('show'));
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('show')});
+renderWindows();updateProgress();
+</script>
+</body>
+</html>
